@@ -1,8 +1,7 @@
-const id = 1;
-
 // debug options - will reset the arrray on reload!
 localStorage.setItem('options', ['Todo', 'In progress', 'Done']);
 
+// GET NEW TASKS
 document.body.querySelector('#submit').addEventListener('click', (event) => {
   const title = document.querySelector('#title').value;
   const description = document.querySelector('#description').value;
@@ -12,13 +11,18 @@ document.body.querySelector('#submit').addEventListener('click', (event) => {
     priority.selectedIndex
   ].text;
 
+  const id = 1;
+  // NEED CREATE TASK ARRAY KEY, WITH ALL TASKS INSIDE
   localStorage.setItem(`list${id}`, [title, description, dueDate, prioritySelected]);
-  const arr = localStorage.getItem(`list${id}`).split(',');
+  // TODO find how push elements to an array inside local storage
 
-  document.querySelector('#todoTitle').innerHTML = arr[0];
-  document.querySelector('#todoDescription').innerHTML = arr[1];
-  document.querySelector('#todoDueDate').innerHTML = arr[2];
-  document.querySelector('#todoPriority').innerHTML = arr[3];
+
+  // const arr = localStorage.getItem(`list${id}`).split(',');
+
+  // document.querySelector('#todoTitle').innerHTML = arr[0];
+  // document.querySelector('#todoDescription').innerHTML = arr[1];
+  // document.querySelector('#todoDueDate').innerHTML = arr[2];
+  // document.querySelector('#todoPriority').innerHTML = arr[3];
 
   event.preventDefault();
 });
