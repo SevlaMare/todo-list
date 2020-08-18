@@ -27,18 +27,17 @@ document.body.querySelector("#submit").addEventListener("click", (event) => {
 
 
 const fillOptions = () => {
-  const all = localStorage.getItem('options').split(',')
-  document.querySelector('#project')
+  const all = localStorage.getItem('options').split(',');
 
-  all.map(e => )
-  // const op1 = document.createElement('option', all[0])
-
-  const elementsToAppend = all.map((e) => {
-    `<option>value</option>`
-  });
+  let elementsToAppend = '';
+  for (let index = 0; index < all.length; index++) {
+    const element = all[index];
+    elementsToAppend += `<option>${element}</option>`;
+  }
+  document.querySelector('#project').innerHTML += elementsToAppend;
 }
 
-document.body.onload = fillOptions
+document.body.onload = fillOptions;
 
 
 
