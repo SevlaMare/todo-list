@@ -1,8 +1,9 @@
 const todos = [];
 const id = 1;
 
-// debug options
+// debug options - will reset the arrray on reload!
 localStorage.setItem('options', ['Todo', 'In progress', 'Done'])
+
 
 document.body.querySelector("#submit").addEventListener("click", (event) => {
   const title = document.querySelector("#title").value;
@@ -37,14 +38,37 @@ const fillOptions = () => {
   document.querySelector('#project').innerHTML += elementsToAppend;
 }
 
+// get new project as option from form
+document.querySelector('#newProjBtn')
+  .addEventListener('click', (event) => {
+    // 1 get value form input
+    const newProj = document.querySelector('#newProject').value
+    console.log(newProj)
+
+    // 2 copy the current array from cache
+    const newProjUpdate = localStorage.getItem('options').split(',')
+    newProjUpdate.push(newProj)
+    
+    // 3 replace by the new array with new element
+    localStorage.setItem('options', newProjUpdate)
+
+    // debug state
+    console.log(localStorage.getItem('options').split(','));
+
+    addNewOption(newProj)
+
+    // prevents reload
+    event.preventDefault();
+})
+
+const addNewOption = (cap) => {
+  const x = document.createElement('option', cap)
+  x.innerHTML = cap
+  document.querySelector('#project').append(x);
+}
+
+// debug options array inside localstorage
+console.log( localStorage.getItem('options').split(',') );
+
+
 document.body.onload = fillOptions;
-
-
-
-
-
-
-// debug
-console.log(
-  localStorage.getItem('options').split(',')
-);
