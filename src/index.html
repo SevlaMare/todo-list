@@ -7,6 +7,13 @@
 </head>
 <body>
   <form class="hide" id="form" >
+    <div class="field"></div>
+    <label>Project</label>
+    <select id="project">
+      <option value='all'>all</option>
+    </select>
+  </div>
+
     <div class="field">
       <label for="title">Title</label>
       <input id="title" type="text" required>
@@ -24,7 +31,7 @@
 
     <div class="field"></div>
       <label>Priority</label>
-      <select>
+      <select id="priority">
         <option value='high'>High</option>
         <option value='low'>Low</option>
       </select>
@@ -34,6 +41,16 @@
       <button id="submit" type="submit" value="Submit">Submit</button>
       <!-- <input id="submit" type="submit" value="Submit"> -->
     </div>
+
   </form>
+
+  <div id="todos-container">
+    <div id="todoTemplate">
+      <h2 id="todoTitle"></h2>
+      <p id="todoDescription"></p>
+      <span id="todoDueDate"></span>
+      <span id="todoPriority"></span>
+    </div>
+  </div>
 </body>
 </html>
