@@ -1,6 +1,8 @@
 const todos = [];
 const id = 1;
 
+// debug options
+localStorage.setItem('options', ['Todo', 'In progress', 'Done'])
 
 document.body.querySelector("#submit").addEventListener("click", (event) => {
   const title = document.querySelector("#title").value;
@@ -18,6 +20,32 @@ document.body.querySelector("#submit").addEventListener("click", (event) => {
   document.querySelector('#todoDueDate').innerHTML = arr[2];
   document.querySelector('#todoPriority').innerHTML = arr[3];
 
-  
-  event.preventDefault();
+  // event.preventDefault();
+
+
 });
+
+
+const fillOptions = () => {
+  const all = localStorage.getItem('options').split(',')
+  document.querySelector('#project')
+
+  all.map(e => )
+  // const op1 = document.createElement('option', all[0])
+
+  const elementsToAppend = all.map((e) => {
+    `<option>value</option>`
+  });
+}
+
+document.body.onload = fillOptions
+
+
+
+
+
+
+// debug
+console.log(
+  localStorage.getItem('options').split(',')
+);

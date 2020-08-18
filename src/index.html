@@ -7,13 +7,6 @@
 </head>
 <body>
   <form class="hide" id="form" >
-    <div class="field"></div>
-    <label>Project</label>
-    <select id="project">
-      <option value='all'>all</option>
-    </select>
-  </div>
-
     <div class="field">
       <label for="title">Title</label>
       <input id="title" type="text" required>
@@ -37,11 +30,16 @@
       </select>
     </div>
 
-    <div class="field">
-      <button id="submit" type="submit" value="Submit">Submit</button>
-      <!-- <input id="submit" type="submit" value="Submit"> -->
+    <div class="field"></div>
+      <label>Project</label>
+      <select id="project">
+        <option value='all'>all</option>
+      </select>
     </div>
 
+    <div class="field">
+      <button id="submit" type="submit" value="Submit">Submit</button>
+    </div>
   </form>
 
   <div id="todos-container">
