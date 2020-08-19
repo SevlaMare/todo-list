@@ -1,4 +1,6 @@
-import { renderProjects } from './renderTasks';
+// import { renderProjects } from './renderTasks';
+
+const { renderProjects } = require("./renderTasks");
 
 if (!(localStorage.getItem('projects'))) {
   localStorage.setItem('projects', JSON.stringify({
@@ -12,10 +14,11 @@ if (!(localStorage.getItem('projects'))) {
 
 const fillOptions = () => {
   const all = Object.keys(JSON.parse(localStorage.getItem('projects')));
-
+  console.log(all);
   let elementsToAppend = '';
   for (let index = 0; index < all.length; index += 1) {
     const element = all[index];
+    console.log(element);
     elementsToAppend += `<option>${element}</option>`;
   }
   document.querySelector('#project').innerHTML += elementsToAppend;
@@ -61,7 +64,7 @@ document.body.querySelector('#submit')
 
   // DEBUG
   // console.log(Object.keys(JSON.parse(localStorage['projects']['todo'])))
-
+  
   event.preventDefault();
   });
 
@@ -92,4 +95,8 @@ document.querySelector('#newProjBtn')
     event.preventDefault();
   });
 
+  document.body.onload = () =>{
+    fillOptions();
+    renderProjects();
+  }; 
 // renderProjects();
