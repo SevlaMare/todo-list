@@ -10,12 +10,18 @@ document.body.querySelector('#submit').addEventListener('click', (event) => {
   const prioritySelected = priority.options[
     priority.selectedIndex
   ].text;
+  const project = document.querySelector('#project');
+  const projectSelected = project.options[project.selectedIndex].text;
 
-  const id = 1;
   // NEED CREATE TASK ARRAY KEY, WITH ALL TASKS INSIDE
-  localStorage.setItem(`list${id}`, [title, description, dueDate, prioritySelected]);
+  const taskKey = title.toLowerCase().replace(/\s/g, '') + projectSelected.toLowerCase().replace(/\s/g, '');
+  const existKey = localStorage.getItem(taskKey);
+  if (existKey === null) {
+    localStorage.setItem(taskKey, [title, description, dueDate, prioritySelected]);
+  } else {
+    document.querySelector('#error').innerHTML = 'name already taken for this project.';
+  }
   // TODO find how push elements to an array inside local storage
-
 
   // const arr = localStorage.getItem(`list${id}`).split(',');
 
