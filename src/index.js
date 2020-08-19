@@ -19,7 +19,18 @@ document.body.querySelector('#submit').addEventListener('click', (event) => {
   const taskKey = title.toLowerCase().replace(/\s/g, '') + projectSelected.toLowerCase().replace(/\s/g, '');
   const existKey = localStorage.getItem(taskKey);
   if (existKey === null) {
-    localStorage.setItem(taskKey, ['tasks', title, description, dueDate, prioritySelected, projectSelected]);
+    localStorage.setItem(taskKey, [title, description, dueDate, prioritySelected, projectSelected]);
+    const existProject = localStorage.getItem(projectSelected);
+    // Create a key for each project, if it is already there,
+    // retrieve the tasks keys and add it the new task key. 
+    // Then replace and save again the new project keys. 
+    if(existProject === null) {
+      localStorage.setItem(projectSelected, [taskKey]);
+    } else {
+      const projectKeys = localStorage.getItem(projectSelected).split(',');
+      projectKeys.push(taskKey);
+      localStorage.setItem(projectSelected, projectKeys);
+    }
   } else {
     document.querySelector('#error').innerHTML = 'name already taken for this project.';
   }
