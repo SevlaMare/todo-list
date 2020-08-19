@@ -1,15 +1,15 @@
 import { renderProjects } from './renderTasks';
 
-// debug options - will reset the arrray on reload!
-localStorage.setItem(
-  'projects',
-  JSON.stringify({
-    all: {},
-    todo: {},
-    'in progress': {},
-    done: {},
-  }),
-);
+if (!(localStorage.getItem('projects'))) {
+  localStorage.setItem('projects', JSON.stringify({
+      all: {},
+      todo: {},
+      'in progress': {},
+      done: {},
+    }),
+  );
+}
+
 
 const fillOptions = () => {
   const all = Object.keys(JSON.parse(localStorage.getItem('projects')));
@@ -22,30 +22,22 @@ const fillOptions = () => {
   document.querySelector('#project').innerHTML += elementsToAppend;
 };
 
-const addNewOption = (cap) => {
-  const x = document.createElement('option', cap);
-  x.innerHTML = cap;
-  document.querySelector('#project').append(x);
-};
+// const addNewOption = (cap) => {
+//   const x = document.createElement('option', cap);
+//   x.innerHTML = cap;
+//   document.querySelector('#project').append(x);
+// };
 
 document.body.onload = fillOptions;
 
-const Task = (
-  title,
-  description,
-  dueDate,
-  prioritySelected,
-  projectSelected,
-) => ({
-  title,
-  description,
-  dueDate,
-  prioritySelected,
-  projectSelected,
+const Task = (title, description, dueDate, prioritySelected, projectSelected) => ({
+    title, description, dueDate, prioritySelected, projectSelected
 });
 
-// GET NEW TASKS
-document.body.querySelector('#submit').addEventListener('click', (event) => {
+// CREATE NEW TASK
+document.body.querySelector('#submit')
+  .addEventListener('click', (event) => {
+
   // get data from form
   const title = document.querySelector('#title').value;
   const description = document.querySelector('#description').value;
@@ -65,33 +57,42 @@ document.body.querySelector('#submit').addEventListener('click', (event) => {
     projectSelected,
   );
 
-  const retrieve = localStorage.getItem('projects');
-  const unpack = JSON.parse(retrieve);
+  // 1 copy and parse whole projects object from local storage
+  const allProjects = JSON.parse(localStorage.getItem('projects'));
 
-  unpack[projectSelected][task.title] = task;
+  // 2 store new task
+  allProjects[projectSelected][task.title] = task;
 
-  localStorage.setItem('projects', JSON.stringify(unpack));
-
-  const retrieveNew = localStorage.getItem('projects');
-  const newObjects = JSON.parse(retrieveNew);
-  document.getElementById('tasks').innerHTML = newObjects.all;
+  // 3 send back to localstorage with new task
+  localStorage.setItem('projects', JSON.stringify(allProjects));
 
   event.preventDefault();
-});
+  });
 
+// CREATE NEW PROJECT TYPE
 document.querySelector('#newProjBtn')
   .addEventListener('click', (event) => {
-  // 1 get value form input
-    const newProj = document.querySelector('#newProject').value;
-    // 2 copy the current array from cache
-    const newProjUpdate = localStorage.getItem('options').split(',');
-    newProjUpdate.push(newProj);
-    // 3 replace by the new array with new element
-    localStorage.setItem('options', newProjUpdate);
+    event.preventDefault();
 
-    addNewOption(newProj);
+    // 0 get value form input
+    const newProjTitle = document.querySelector('#newProject').value;
 
-    // prevents reload
+    // 1 copy and parse whole projects object from local storage
+    const allProjects = JSON.parse(localStorage.getItem('projects'));
+
+    // 2 store new project
+    allProjects['projects'] = newProjTitle;
+
+    // 3 send back to localstorage with new task
+    localStorage.setItem('projects', JSON.stringify(allProjects));
+    console.log(Object.keys(JSON.parse(localStorage['projects'])))
+
+    // 4 send new option to html
+    const newProjTitleE = document.createElement('option', newProjTitle);
+    newProjTitleE.innerHTML = newProjTitle;
+    document.querySelector('#project').append(newProjTitleE);
+  
+    // addNewOption(newProjTitle);
     event.preventDefault();
   });
 
