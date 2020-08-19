@@ -10,7 +10,6 @@ if (!(localStorage.getItem('projects'))) {
   );
 }
 
-
 const fillOptions = () => {
   const all = Object.keys(JSON.parse(localStorage.getItem('projects')));
 
@@ -21,12 +20,6 @@ const fillOptions = () => {
   }
   document.querySelector('#project').innerHTML += elementsToAppend;
 };
-
-// const addNewOption = (cap) => {
-//   const x = document.createElement('option', cap);
-//   x.innerHTML = cap;
-//   document.querySelector('#project').append(x);
-// };
 
 document.body.onload = fillOptions;
 
@@ -66,6 +59,9 @@ document.body.querySelector('#submit')
   // 3 send back to localstorage with new task
   localStorage.setItem('projects', JSON.stringify(allProjects));
 
+  // DEBUG
+  // console.log(Object.keys(JSON.parse(localStorage['projects']['todo'])))
+
   event.preventDefault();
   });
 
@@ -81,11 +77,11 @@ document.querySelector('#newProjBtn')
     const allProjects = JSON.parse(localStorage.getItem('projects'));
 
     // 2 store new project
-    allProjects['projects'] = newProjTitle;
+    allProjects[newProjTitle] = {};
 
     // 3 send back to localstorage with new task
     localStorage.setItem('projects', JSON.stringify(allProjects));
-    console.log(Object.keys(JSON.parse(localStorage['projects'])))
+    // console.log(Object.keys(JSON.parse(localStorage['projects'])))
 
     // 4 send new option to html
     const newProjTitleE = document.createElement('option', newProjTitle);
