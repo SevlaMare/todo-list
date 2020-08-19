@@ -1,7 +1,7 @@
-import { renderTasks } from './renderTasks';
+import { renderTasks, renderProjects } from './renderTasks';
 
 // debug options - will reset the arrray on reload!
-localStorage.setItem('options', ['Todo', 'In progress', 'Done']);
+localStorage.setItem('options', ['all', 'Todo', 'In progress', 'Done']);
 
 // GET NEW TASKS
 document.body.querySelector('#submit').addEventListener('click', (event) => {
@@ -35,6 +35,7 @@ document.body.querySelector('#submit').addEventListener('click', (event) => {
     document.querySelector('#error').innerHTML = 'name already taken for this project.';
   }
 
+  // renderProjects();
   event.preventDefault();
 });
 
@@ -47,6 +48,7 @@ const fillOptions = () => {
     elementsToAppend += `<option>${element}</option>`;
   }
   document.querySelector('#project').innerHTML += elementsToAppend;
+  // renderTasks();
 };
 
 const addNewOption = (cap) => {
@@ -77,4 +79,5 @@ document.querySelector('#newProjBtn')
 
 document.body.onload = fillOptions;
 
-renderTasks();
+renderProjects();
+// renderTasks();
