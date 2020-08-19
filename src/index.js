@@ -1,4 +1,4 @@
-import { createContent, createContainer } from './helpers'
+import { renderTasks } from './renderTasks';
 
 // debug options - will reset the arrray on reload!
 localStorage.setItem('options', ['Todo', 'In progress', 'Done']);
@@ -55,6 +55,7 @@ const addNewOption = (cap) => {
   document.querySelector('#project').append(x);
 };
 
+
 // get new project as option from form
 document.querySelector('#newProjBtn')
   .addEventListener('click', (event) => {
@@ -74,7 +75,6 @@ document.querySelector('#newProjBtn')
     event.preventDefault();
   });
 
-// debug options array inside localstorage
-// console.log(localStorage.getItem('options').split(','));
-
 document.body.onload = fillOptions;
+
+renderTasks();
