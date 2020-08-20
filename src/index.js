@@ -58,6 +58,8 @@ document.body.querySelector('#submit')
     // 3 send back to localstorage with new task
     localStorage.setItem('projects', JSON.stringify(allProjects));
 
+    renderTask(task, projectSelected.replace(/\s/g, ''));
+
     event.preventDefault();
   });
 
