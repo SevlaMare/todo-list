@@ -92,13 +92,12 @@ document.body.onload = () => {
   renderProjects();
 
   // DEBUG - should render a single taks!
-
+  const tasksObject = getAllTasksFrom('todo') // retuning all tasks from a obj
   console.log('TASK OBJ', tasksObject)
 
   const taskExample = {title: "DDDDD", description: "DDDD", dueDate: "2020-08-06", prioritySelected: "High", projectSelected: 'todo'}
   renderTask(taskExample, 'todo') // need only 1 task to work
 
   // const projExample = {  }
-  const tasksObject = getAllTasksFrom('todo') // retuning all tasks from a obj
   loopOverProject(tasksObject)
 }

@@ -56,11 +56,11 @@ const loopOverProject = (projectObj, projectId) => {
 
   for (let task = 0; task < len; task += 1) {
     // renderTask(task.value, projectId);
+    let currentTask = Object.values(projectObj)[task]
+    renderTask(currentTask)
 
     // DEBUG print each TASK
-    Object.values(projectObj)[task]
-
-    console.log( Object.values(projectObj)[task] ) // single task
+    // console.log( Object.values(projectObj)[task] ) // single task
   }
 };
 
