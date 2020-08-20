@@ -1,6 +1,6 @@
-import { createContent, createContainer } from './helpers';
+import { createContent, createContainer, createInput } from './helpers';
 
-// 0 RENDER PROJECT DIVs (ok)
+// 0 RENDER PROJECT DIVs
 const renderProjects = () => {
   const projects = JSON.parse(localStorage.getItem('projects'));
   const projectsKeys = Object.keys(projects);
@@ -17,17 +17,16 @@ const renderProjects = () => {
   }
 };
 
-// 1 GET ALL TASKS FROM A PROJECT (ok)
+// 1 GET ALL TASKS FROM A PROJECT
 const getAllTasksFrom = (project) => {
   const allProjects = JSON.parse(localStorage.getItem('projects'));
 
   return allProjects[project];
 };
 
-// 2 RENDER TASK (get 1 task, render it) (ok)
+// 2 RENDER TASK
 const renderTask = (task, projectId) => {
-  // DATA
-  // TODO: extract data to another fx
+  // data
   const { title } = task;
   const { description } = task;
   const { dueDate } = task;
@@ -35,6 +34,7 @@ const renderTask = (task, projectId) => {
 
   // containers
   const taskDiv = createContainer('div');
+  const editBtn = createInput('button', null, false, null, 'EDIT')
 
   // content
   const projTitle = createContent('h3', null, title);
@@ -43,7 +43,7 @@ const renderTask = (task, projectId) => {
   const projPriority = createContent('p', null, priority);
 
   // annex
-  taskDiv.append(projTitle, projDescription, projDate, projPriority);
+  taskDiv.append(projTitle, projDescription, projDate, projPriority, editBtn);
   document.getElementById(projectId).append(taskDiv);
 };
 
