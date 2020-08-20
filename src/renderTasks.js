@@ -24,26 +24,54 @@ const getAllTasksFrom = (project) => {
   return allProjects[project];
 };
 
+const editTask = (projectSelect, titleP) => {
+  const project = JSON.parse(localStorage.getItem('projects'));
+  const {
+    title, description, dueDate, prioritySelected, prjIndex,
+  } = project[projectSelect][titleP];
+
+  // fill form with values from task to edit
+  const txtTitle = document.getElementById('title');
+  txtTitle.value = title;
+  txtTitle.disabled = true;
+
+  const txtDescription = document.getElementById('description');
+  txtDescription.value = description;
+
+  const txtDueDate = document.getElementById('dueDate');
+  txtDueDate.value = dueDate;
+
+  const txtPriority = document.getElementById('priority');
+  txtPriority.selectedIndex = prioritySelected === 'High' ? 0 : 1;
+
+  const txtProject = document.getElementById('project');
+  txtProject.selectedIndex = prjIndex;
+};
+
 // 2 RENDER TASK (get 1 task, render it) (ok)
 const renderTask = (task, projectId) => {
   // DATA
-  // TODO: extract data to another fx
-  const { title } = task;
-  const { description } = task;
-  const { dueDate } = task;
-  const priority = task.prioritySelected;
+  const {
+    title, description, dueDate, priority, projectSelected,
+  } = task;
 
   // containers
-  const taskDiv = createContainer('div');
+  const containerId = title.replace(/\s/g, '') + projectId;
+  const taskDiv = createContainer('div', null, containerId);
 
   // content
   const projTitle = createContent('h3', null, title);
   const projDescription = createContent('p', null, description);
   const projDate = createContent('p', null, dueDate);
   const projPriority = createContent('p', null, priority);
+  const editButton = createContent('button', null, 'EDIT');
+
+  // event
+  editButton.addEventListener('click', () => { editTask(projectSelected, title); });
+  editButton.id = `btn${containerId}`;
 
   // annex
-  taskDiv.append(projTitle, projDescription, projDate, projPriority);
+  taskDiv.append(projTitle, projDescription, projDate, projPriority, editButton);
   document.getElementById(projectId).append(taskDiv);
 };
 
@@ -62,7 +90,7 @@ const renderAllTask = () => {
   const projectsKeys = Object.keys(projects);
 
   for (let project = 0; project < projectsKeys.length; project += 1) {
-    let element = projectsKeys[project];
+    const element = projectsKeys[project];
 
     const projectTasks = getAllTasksFrom(element);
     loopOverProject(projectTasks, element.replace(/\s/g, ''));
