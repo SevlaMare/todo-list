@@ -25,10 +25,10 @@ const getAllTasksFrom = (project) => {
 };
 
 const editTask = (projectSelect, titleP) => {
-  // get form elements values
   const project = JSON.parse(localStorage.getItem('projects'));
-  const { title, description, dueDate, priority, projectSelected } = project[projectSelect][titleP];
+  const { title, description, dueDate, prioritySelected, projectSelected } = project[projectSelect][titleP];
 
+  // fill form with values from task to edit
   const txtTitle = document.getElementById('title');
   txtTitle.value = title;
   txtTitle.disabled = true;
@@ -40,10 +40,14 @@ const editTask = (projectSelect, titleP) => {
   txtDueDate.value = dueDate;
 
   const txtPriority = document.getElementById('priority');
-  txtPriority.selectedIndex = priority === 'High' ? 0 : 1;
+  txtPriority.selectedIndex = prioritySelected === 'High' ? 0 : 1;
 
-  const txtProject = document.getElementById('project');
-  txtProject.selectedIndex = 3;
+  // DEBUG
+  console.log(project[projectSelect][titleP])
+  console.log(prioritySelected)
+
+  // const txtProject = document.getElementById('project');
+  // txtProject.selectedIndex = 3;
 };
 
 // 2 RENDER TASK (get 1 task, render it) (ok)
@@ -71,12 +75,6 @@ const renderTask = (task, projectId) => {
   taskDiv.append(projTitle, projDescription, projDate, projPriority, editButton);
   document.getElementById(projectId).append(taskDiv);
 };
-
-// document.getElementById('tasks').addEventListener("click", () => {
-//   let target = event.target;
-
-//   if 
-// });
 
 // 3 LOOP OVER A PROJECT, return tasks rendered
 const loopOverProject = (projectObj, projectId) => {
