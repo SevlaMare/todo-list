@@ -1,74 +1,65 @@
-// import { renderProjects } from './renderTasks';
+import { renderProjects, getAllTasksFrom, renderTask } from './renderTasks';
 
-const { renderProjects } = require("./renderTasks");
-
+// CREATE DATABASE
 if (!(localStorage.getItem('projects'))) {
   localStorage.setItem('projects', JSON.stringify({
-      all: {},
-      todo: {},
-      'in progress': {},
-      done: {},
-    }),
-  );
+    all: {},
+    todo: {},
+    'in progress': {},
+    done: {},
+  }));
 }
 
 const fillOptions = () => {
   const all = Object.keys(JSON.parse(localStorage.getItem('projects')));
-  console.log(all);
+
   let elementsToAppend = '';
   for (let index = 0; index < all.length; index += 1) {
     const element = all[index];
-    console.log(element);
     elementsToAppend += `<option>${element}</option>`;
   }
   document.querySelector('#project').innerHTML += elementsToAppend;
 };
 
-document.body.onload = fillOptions;
-
 const Task = (title, description, dueDate, prioritySelected, projectSelected) => ({
-    title, description, dueDate, prioritySelected, projectSelected
+  title, description, dueDate, prioritySelected, projectSelected,
 });
 
 // CREATE NEW TASK
 document.body.querySelector('#submit')
   .addEventListener('click', (event) => {
+    // get data from form
+    const title = document.querySelector('#title').value;
+    const description = document.querySelector('#description').value;
+    const dueDate = document.querySelector('#dueDate').value;
 
-  // get data from form
-  const title = document.querySelector('#title').value;
-  const description = document.querySelector('#description').value;
-  const dueDate = document.querySelector('#dueDate').value;
+    const priority = document.querySelector('#priority');
+    const prioritySelected = priority.options[priority.selectedIndex].text;
 
-  const priority = document.querySelector('#priority');
-  const prioritySelected = priority.options[priority.selectedIndex].text;
+    const project = document.querySelector('#project');
+    const projectSelected = project.options[project.selectedIndex].text;
 
-  const project = document.querySelector('#project');
-  const projectSelected = project.options[project.selectedIndex].text;
+    const task = Task(
+      title,
+      description,
+      dueDate,
+      prioritySelected,
+      projectSelected,
+    );
 
-  const task = Task(
-    title,
-    description,
-    dueDate,
-    prioritySelected,
-    projectSelected,
-  );
+    // 1 copy and parse whole projects object from local storage
+    const allProjects = JSON.parse(localStorage.getItem('projects'));
 
-  // 1 copy and parse whole projects object from local storage
-  const allProjects = JSON.parse(localStorage.getItem('projects'));
+    // 2 store new task
+    allProjects[projectSelected][task.title] = task;
 
-  // 2 store new task
-  allProjects[projectSelected][task.title] = task;
+    // 3 send back to localstorage with new task
+    localStorage.setItem('projects', JSON.stringify(allProjects));
 
-  // 3 send back to localstorage with new task
-  localStorage.setItem('projects', JSON.stringify(allProjects));
-
-  // DEBUG
-  // console.log(Object.keys(JSON.parse(localStorage['projects']['todo'])))
-  
-  event.preventDefault();
+    event.preventDefault();
   });
 
-// CREATE NEW PROJECT TYPE
+// CREATE NEW PROJECT
 document.querySelector('#newProjBtn')
   .addEventListener('click', (event) => {
     event.preventDefault();
@@ -90,13 +81,20 @@ document.querySelector('#newProjBtn')
     const newProjTitleE = document.createElement('option', newProjTitle);
     newProjTitleE.innerHTML = newProjTitle;
     document.querySelector('#project').append(newProjTitleE);
-  
+
     // addNewOption(newProjTitle);
     event.preventDefault();
   });
 
-  document.body.onload = () =>{
-    fillOptions();
-    renderProjects();
-  }; 
-// renderProjects();
+document.body.onload = () => {
+  fillOptions();
+  renderProjects();
+}
+
+// DEBUG
+document.body.onload = () => {
+  // should render a single taks!
+  renderTask( getAllTasksFrom('todo'), 'todo')
+}
+
+

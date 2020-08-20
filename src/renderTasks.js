@@ -1,38 +1,64 @@
-import { createContent, createContainer } from "./helpers";
+import { createContent, createContainer } from './helpers';
 
-// 1 GET A PROJECT WITH OWN TASKS
-
+// 1 GET ALL TASKS FROM A PROJECT (ok)
 const getAllTasksFrom = (project) => {
-  const allProjects = JSON.parse(localStorage.getItem("projects"));
+  const allProjects = JSON.parse(localStorage.getItem('projects'));
 
-  return allProjects[project];
+  return allProjects[project]; // { PRj1 : {...}, PRJ2 : {...} }
 };
 
-// 4 RENDER A SINGLE TASK
+// 2 RENDER TASK
 const renderTask = (task, projectId) => {
-  console.log('________:', task);
-  const title = task.title;
-  // Containers
-  const taskDiv = createContainer("div");
+  // task is a object like {title: 'etc1', ...}
 
-  // Content
-  const projTitle = createContent("h2", null, title);
-  const projDescription = createContent("p", null, description);
-  const projDate = createContent("p", null, dueDate);
-  const projPriority = createContent("p", null, priority);
+  // DATA
+  // TODO: extract data to another fx
+  const title = task['title']
+  const description = task['description']
+  const date = task['dueDate']
+  const priority = task['prioritySelected']
+  const project = task['projectSelected']
 
+  // containers
+  const taskDiv = createContainer('div');
+
+  // content
+  const projTitle = createContent('h2', null, title);
+  const projDescription = createContent('p', null, description);
+  const projDate = createContent('p', null, dueDate);
+  const projPriority = createContent('p', null, priority);
+
+  // annex
   taskDiv.append(projTitle, projDescription, projDate, projPriority);
   document.getElementById(projectId).append(taskDiv);
 };
 
-// 3 RETURN AN ARRAY WITH ALL INFORMATION ABOUT ONE TASK
+
+// 3 RENDER PROJECT DIVs
+const renderProjects = () => {
+  const projects = JSON.parse(localStorage.getItem('projects'));
+  const projectsKeys = Object.keys(projects);
+
+  for (let project = 0; project < projectsKeys.length; project += 1) {
+    const element = projectsKeys[project];
+    const containerId = element.replace(/\s/g, '');
+
+    const container = createContainer('div', null, containerId);
+    const title = createContent('h2', null, element);
+
+    container.append(title);
+    document.querySelector('#tasks').append(container);
+
+    // renderAllTask(element, containerId);
+  }
+};
+
+
+// ------ TODO: need refactor ---------
 const loopOverProject = (allStuff, projectId) => {
   const len = Object.keys(allStuff).length;
 
-  console.log('allStff', allStuff);
-
-  for(let task = 0; task <= len; task += 1) {
-    console.log('::::::',task);
+  for (let task = 0; task <= len; task += 1) {
     renderTask(task.value, projectId);
   }
 };
@@ -42,22 +68,8 @@ const renderAllTask = (project, projectId) => {
   loopOverProject(projectTasks, projectId);
 };
 
-const renderProjects = () => {
-  const projects = JSON.parse(localStorage.getItem("projects"));
-  const projectsKeys = Object.keys(projects);
 
-  for (let project = 0; project < projectsKeys.length; project += 1) {
-    const element = projectsKeys[project];
-    const containerId = element.replace(/\s/g, "");
-
-    const container = createContainer("div", null, containerId);
-    const title = createContent("h2", null, element);
-
-    container.append(title);
-    document.querySelector("#tasks").append(container);
-
-    renderAllTask(element, containerId);
-  }
+export {
+  getAllTasksFrom, renderTask, loopOverProject,
+  renderAllTask, renderProjects,
 };
-
-export { renderProjects };
