@@ -1,5 +1,6 @@
 import { renderProjects, getAllTasksFrom, renderTask,
-  loopOverProject } from './renderTasks';
+  loopOverProject, 
+  renderAllTask} from './renderTasks';
 
 // CREATE DATABASE
 if (!(localStorage.getItem('projects'))) {
@@ -90,14 +91,5 @@ document.querySelector('#newProjBtn')
 document.body.onload = () => {
   fillOptions();
   renderProjects();
-
-  // DEBUG - should render a single taks!
-  const tasksObject = getAllTasksFrom('todo') // retuning all tasks from a obj
-  console.log('TASK OBJ', tasksObject)
-
-  const taskExample = {title: "DDDDD", description: "DDDD", dueDate: "2020-08-06", prioritySelected: "High", projectSelected: 'todo'}
-  renderTask(taskExample, 'todo') // need only 1 task to work
-
-  // const projExample = {  }
-  loopOverProject(tasksObject)
+  renderAllTask();
 }

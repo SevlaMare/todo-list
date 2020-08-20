@@ -57,7 +57,8 @@ const loopOverProject = (projectObj, projectId) => {
   for (let task = 0; task < len; task += 1) {
     // renderTask(task.value, projectId);
     let currentTask = Object.values(projectObj)[task]
-    renderTask(currentTask)
+    console.log(currentTask);
+    renderTask(currentTask, projectId)
 
     // DEBUG print each TASK
     // console.log( Object.values(projectObj)[task] ) // single task
@@ -69,8 +70,16 @@ const loopOverProject = (projectObj, projectId) => {
 
 // ------ TODO: need refactor ---------
 const renderAllTask = (project, projectId) => {
-  const projectTasks = getAllTasksFrom(project);
-  loopOverProject(projectTasks, projectId);
+  const projects = JSON.parse(localStorage.getItem('projects'));
+  const projectsKeys = Object.keys(projects);
+
+  for (let project = 0; project < projectsKeys.length; project++) {
+    const element = projectsKeys[project];
+    console.log(element);
+    
+    const projectTasks = getAllTasksFrom(element);
+    loopOverProject(projectTasks, element);
+  }
 };
 
 export { renderProjects, getAllTasksFrom, renderTask,
