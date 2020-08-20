@@ -28,13 +28,10 @@ const getAllTasksFrom = (project) => {
 const renderTask = (task, projectId) => {
   // DATA
   // TODO: extract data to another fx
-  const title = task['title']
-  const description = task['description']
-  const dueDate = task['dueDate']
-  const priority = task['prioritySelected']
-  const project = task['projectSelected']
-
-  console.log(title)
+  const { title } = task;
+  const { description } = task;
+  const { dueDate } = task;
+  const priority = task.prioritySelected;
 
   // containers
   const taskDiv = createContainer('div');
@@ -55,32 +52,24 @@ const loopOverProject = (projectObj, projectId) => {
   const len = Object.keys(projectObj).length;
 
   for (let task = 0; task < len; task += 1) {
-    // renderTask(task.value, projectId);
-    let currentTask = Object.values(projectObj)[task]
-    console.log(currentTask);
-    renderTask(currentTask, projectId)
-
-    // DEBUG print each TASK
-    // console.log( Object.values(projectObj)[task] ) // single task
+    const currentTask = Object.values(projectObj)[task];
+    renderTask(currentTask, projectId);
   }
 };
 
-// 4 LOOP OVER all projects to render all
-
-
-// ------ TODO: need refactor ---------
-const renderAllTask = (project, projectId) => {
+const renderAllTask = () => {
   const projects = JSON.parse(localStorage.getItem('projects'));
   const projectsKeys = Object.keys(projects);
 
-  for (let project = 0; project < projectsKeys.length; project++) {
-    const element = projectsKeys[project];
-    console.log(element);
-    
+  for (let project = 0; project < projectsKeys.length; project += 1) {
+    let element = projectsKeys[project];
+
     const projectTasks = getAllTasksFrom(element);
-    loopOverProject(projectTasks, element);
+    loopOverProject(projectTasks, element.replace(/\s/g, ''));
   }
 };
 
-export { renderProjects, getAllTasksFrom, renderTask,
-  loopOverProject, renderAllTask };
+export {
+  renderProjects, getAllTasksFrom, renderTask,
+  loopOverProject, renderAllTask,
+};

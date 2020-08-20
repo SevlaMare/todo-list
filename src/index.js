@@ -1,6 +1,7 @@
-import { renderProjects, getAllTasksFrom, renderTask,
-  loopOverProject, 
-  renderAllTask} from './renderTasks';
+import {
+  renderProjects, renderTask,
+  renderAllTask,
+} from './renderTasks';
 
 // CREATE DATABASE
 if (!(localStorage.getItem('projects'))) {
@@ -79,7 +80,6 @@ document.querySelector('#newProjBtn')
 
     // 3 send back to localstorage with new task
     localStorage.setItem('projects', JSON.stringify(allProjects));
-    // console.log(Object.keys(JSON.parse(localStorage['projects'])))
 
     // 4 send new option to html
     const newProjTitleE = document.createElement('option', newProjTitle);
@@ -94,4 +94,4 @@ document.body.onload = () => {
   fillOptions();
   renderProjects();
   renderAllTask();
-}
+};
