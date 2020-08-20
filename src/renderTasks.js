@@ -1,63 +1,86 @@
-import { createContent, createContainer } from "./helpers";
+import { createContent, createContainer } from './helpers';
 
-// 1 GET A PROJECT WITH OWN TASKS
-
-const getAllTasksFrom = (project) => {
-  const allProjects = JSON.parse(localStorage.getItem("projects"));
-
-  return allProjects[project];
-};
-
-// 4 RENDER A SINGLE TASK
-const renderTask = (task, projectId) => {
-  console.log('________:', task);
-  const title = task.title;
-  // Containers
-  const taskDiv = createContainer("div");
-
-  // Content
-  const projTitle = createContent("h2", null, title);
-  const projDescription = createContent("p", null, description);
-  const projDate = createContent("p", null, dueDate);
-  const projPriority = createContent("p", null, priority);
-
-  taskDiv.append(projTitle, projDescription, projDate, projPriority);
-  document.getElementById(projectId).append(taskDiv);
-};
-
-// 3 RETURN AN ARRAY WITH ALL INFORMATION ABOUT ONE TASK
-const loopOverProject = (allStuff, projectId) => {
-  const len = Object.keys(allStuff).length;
-
-  console.log('allStff', allStuff);
-
-  for(let task = 0; task <= len; task += 1) {
-    console.log('::::::',task);
-    renderTask(task.value, projectId);
-  }
-};
-
-const renderAllTask = (project, projectId) => {
-  const projectTasks = getAllTasksFrom(project);
-  loopOverProject(projectTasks, projectId);
-};
-
+// 0 RENDER PROJECT DIVs (ok)
 const renderProjects = () => {
-  const projects = JSON.parse(localStorage.getItem("projects"));
+  const projects = JSON.parse(localStorage.getItem('projects'));
   const projectsKeys = Object.keys(projects);
 
   for (let project = 0; project < projectsKeys.length; project += 1) {
     const element = projectsKeys[project];
-    const containerId = element.replace(/\s/g, "");
+    const containerId = element.replace(/\s/g, '');
 
-    const container = createContainer("div", null, containerId);
-    const title = createContent("h2", null, element);
+    const container = createContainer('div', null, containerId);
+    const title = createContent('h2', null, element);
 
     container.append(title);
-    document.querySelector("#tasks").append(container);
-
-    renderAllTask(element, containerId);
+    document.querySelector('#tasks').append(container);
   }
 };
 
-export { renderProjects };
+// 1 GET ALL TASKS FROM A PROJECT (ok)
+const getAllTasksFrom = (project) => {
+  const allProjects = JSON.parse(localStorage.getItem('projects'));
+
+  return allProjects[project];
+};
+
+// 2 RENDER TASK (get 1 task, render it) (ok)
+const renderTask = (task, projectId) => {
+  // DATA
+  // TODO: extract data to another fx
+  const title = task['title']
+  const description = task['description']
+  const dueDate = task['dueDate']
+  const priority = task['prioritySelected']
+  const project = task['projectSelected']
+
+  console.log(title)
+
+  // containers
+  const taskDiv = createContainer('div');
+
+  // content
+  const projTitle = createContent('h3', null, title);
+  const projDescription = createContent('p', null, description);
+  const projDate = createContent('p', null, dueDate);
+  const projPriority = createContent('p', null, priority);
+
+  // annex
+  taskDiv.append(projTitle, projDescription, projDate, projPriority);
+  document.getElementById(projectId).append(taskDiv);
+};
+
+// 3 LOOP OVER A PROJECT, return tasks rendered
+const loopOverProject = (projectObj, projectId) => {
+  const len = Object.keys(projectObj).length;
+
+  for (let task = 0; task < len; task += 1) {
+    // renderTask(task.value, projectId);
+    let currentTask = Object.values(projectObj)[task]
+    console.log(currentTask);
+    renderTask(currentTask, projectId)
+
+    // DEBUG print each TASK
+    // console.log( Object.values(projectObj)[task] ) // single task
+  }
+};
+
+// 4 LOOP OVER all projects to render all
+
+
+// ------ TODO: need refactor ---------
+const renderAllTask = (project, projectId) => {
+  const projects = JSON.parse(localStorage.getItem('projects'));
+  const projectsKeys = Object.keys(projects);
+
+  for (let project = 0; project < projectsKeys.length; project++) {
+    const element = projectsKeys[project];
+    console.log(element);
+    
+    const projectTasks = getAllTasksFrom(element);
+    loopOverProject(projectTasks, element);
+  }
+};
+
+export { renderProjects, getAllTasksFrom, renderTask,
+  loopOverProject, renderAllTask };
