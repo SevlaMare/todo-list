@@ -4,10 +4,21 @@ import { createContent, createContainer } from './helpers';
 const getAllTasksFrom = (project) => {
   const allProjects = JSON.parse(localStorage.getItem('projects'));
 
+  console.log(allProjects[project])
   return allProjects[project]; // { PRj1 : {...}, PRJ2 : {...} }
 };
 
-// 2 RENDER TASK
+// 2 Loop over project, return tasks
+const loopOverProject = (allStuff, projectId) => {
+  const len = Object.keys(allStuff).length;
+
+  for (let task = 0; task <= len; task += 1) {
+    renderTask(task.value, projectId);
+  }
+};
+
+
+// 3 RENDER TASK
 const renderTask = (task, projectId) => {
   // task is a object like {title: 'etc1', ...}
 
@@ -15,9 +26,11 @@ const renderTask = (task, projectId) => {
   // TODO: extract data to another fx
   const title = task['title']
   const description = task['description']
-  const date = task['dueDate']
+  const dueDate = task['dueDate']
   const priority = task['prioritySelected']
   const project = task['projectSelected']
+
+  console.log(title)
 
   // containers
   const taskDiv = createContainer('div');
@@ -55,14 +68,6 @@ const renderProjects = () => {
 
 
 // ------ TODO: need refactor ---------
-const loopOverProject = (allStuff, projectId) => {
-  const len = Object.keys(allStuff).length;
-
-  for (let task = 0; task <= len; task += 1) {
-    renderTask(task.value, projectId);
-  }
-};
-
 const renderAllTask = (project, projectId) => {
   const projectTasks = getAllTasksFrom(project);
   loopOverProject(projectTasks, projectId);

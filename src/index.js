@@ -89,12 +89,9 @@ document.querySelector('#newProjBtn')
 document.body.onload = () => {
   fillOptions();
   renderProjects();
+
+  // DEBUG - should render a single taks!
+  const tasksObject = getAllTasksFrom('todo') // retuning all tasks, need only 1 to work
+  const taskExample = {title: "DDDDD", description: "DDDD", dueDate: "2020-08-06", prioritySelected: "High", projectSelected: 'todo'}
+  renderTask(taskExample, 'todo')
 }
-
-// DEBUG
-document.body.onload = () => {
-  // should render a single taks!
-  renderTask( getAllTasksFrom('todo'), 'todo')
-}
-
-
