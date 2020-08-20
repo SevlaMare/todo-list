@@ -24,13 +24,10 @@ const getAllTasksFrom = (project) => {
   return allProjects[project];
 };
 
-const editTask = (parentId, projectSelected) => {
+const editTask = (projectSelect, titleP) => {
   // get form elements values
-  const taskContainer = document.getElementById(parentId);
-  const title = taskContainer.getElementsByTagName('h3')[0].innerHTML;
-  const description = taskContainer.getElementsByTagName('p')[0].innerHTML;
-  const dueDate = taskContainer.getElementsByTagName('p')[1].innerHTML;
-  const priority = taskContainer.getElementsByTagName('p')[2].innerHTML;
+  const project = JSON.parse(localStorage.getItem('projects'));
+  const { title, description, dueDate, priority, projectSelected } = project[projectSelect][titleP];
 
   const txtTitle = document.getElementById('title');
   txtTitle.value = title;
@@ -47,7 +44,6 @@ const editTask = (parentId, projectSelected) => {
 
   const txtProject = document.getElementById('project');
   txtProject.selectedIndex = 3;
-  console.log(projectSelected);
 };
 
 // 2 RENDER TASK (get 1 task, render it) (ok)
@@ -68,7 +64,7 @@ const renderTask = (task, projectId) => {
   const editButton = createContent('button', null, 'EDIT');
 
   // event
-  editButton.addEventListener('click', () => { editTask(containerId, projectSelected); })
+  editButton.addEventListener('click', () => { editTask(projectSelected, title); })
   editButton.id = `btn${containerId}`;
 
   // annex
