@@ -26,7 +26,9 @@ const getAllTasksFrom = (project) => {
 
 const editTask = (projectSelect, titleP) => {
   const project = JSON.parse(localStorage.getItem('projects'));
-  const { title, description, dueDate, prioritySelected, projectSelected } = project[projectSelect][titleP];
+  const {
+    title, description, dueDate, prioritySelected, prjIndex,
+  } = project[projectSelect][titleP];
 
   // fill form with values from task to edit
   const txtTitle = document.getElementById('title');
@@ -42,19 +44,16 @@ const editTask = (projectSelect, titleP) => {
   const txtPriority = document.getElementById('priority');
   txtPriority.selectedIndex = prioritySelected === 'High' ? 0 : 1;
 
-  // DEBUG
-  console.log(project[projectSelect][titleP])
-  console.log(prioritySelected)
-
-  // const txtProject = document.getElementById('project');
-  // txtProject.selectedIndex = 3;
+  const txtProject = document.getElementById('project');
+  txtProject.selectedIndex = prjIndex;
 };
 
 // 2 RENDER TASK (get 1 task, render it) (ok)
 const renderTask = (task, projectId) => {
   // DATA
-  // TODO: extract data to another fx
-  const { title, description, dueDate, priority, projectSelected } = task;
+  const {
+    title, description, dueDate, priority, projectSelected,
+  } = task;
 
   // containers
   const containerId = title.replace(/\s/g, '') + projectId;
@@ -68,7 +67,7 @@ const renderTask = (task, projectId) => {
   const editButton = createContent('button', null, 'EDIT');
 
   // event
-  editButton.addEventListener('click', () => { editTask(projectSelected, title); })
+  editButton.addEventListener('click', () => { editTask(projectSelected, title); });
   editButton.id = `btn${containerId}`;
 
   // annex
@@ -91,7 +90,7 @@ const renderAllTask = () => {
   const projectsKeys = Object.keys(projects);
 
   for (let project = 0; project < projectsKeys.length; project += 1) {
-    let element = projectsKeys[project];
+    const element = projectsKeys[project];
 
     const projectTasks = getAllTasksFrom(element);
     loopOverProject(projectTasks, element.replace(/\s/g, ''));

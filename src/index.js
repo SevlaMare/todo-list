@@ -24,8 +24,8 @@ const fillOptions = () => {
   document.querySelector('#project').innerHTML += elementsToAppend;
 };
 
-const Task = (title, description, dueDate, prioritySelected, projectSelected) => ({
-  title, description, dueDate, prioritySelected, projectSelected,
+const Task = (title, description, dueDate, prioritySelected, projectSelected, prjIndex) => ({
+  title, description, dueDate, prioritySelected, projectSelected, prjIndex,
 });
 
 // CREATE NEW TASK
@@ -42,12 +42,16 @@ document.body.querySelector('#submit')
     const project = document.querySelector('#project');
     const projectSelected = project.options[project.selectedIndex].text;
 
+    // SHOULD SEND INDEX NUMBER
+    const prjIndex = project.selectedIndex;
+
     const task = Task(
       title,
       description,
       dueDate,
       prioritySelected,
       projectSelected,
+      prjIndex,
     );
 
     // 1 copy and parse whole projects object from local storage
