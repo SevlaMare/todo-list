@@ -18,7 +18,7 @@
 
 ## Live Demo
 You can access a deployed version of this app:<br>
-https://raw.githack.com/SevlaMare/todo-list/feature-app/src/index.html
+https://todo-list-js-57802.web.app
 
 ## Requirements
 - [x] Setup webpack to build all from source(src) to distribuition(dist) folder
