@@ -16,4 +16,16 @@ const createContainer = (tag, className, idName) => {
   return element;
 };
 
-export { createContent, createContainer };
+const createInput = (type, idName, required = true, placeholder, value) => {
+  const element = document.createElement('input');
+
+  element.setAttribute('type', type);
+  if (placeholder) { element.setAttribute('placeholder', placeholder); }
+  if (idName) { element.id = idName; }
+  if (required) { element.setAttribute('required', ''); }
+  if (value) { element.value = value; }
+
+  return element;
+};
+
+export { createContent, createContainer, createInput };
