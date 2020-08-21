@@ -14,3 +14,7 @@
 #tasks div > div {
   width: 400px;
 }
+
+#tasks button {
+  margin-right: 20px;
+}

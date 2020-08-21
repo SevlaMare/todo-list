@@ -3,7 +3,6 @@ import './css/style.css';
 import './css/form.css';
 import './css/projects.css';
 
-
 // CREATE DATABASE
 if (!(localStorage.getItem('projects'))) {
   localStorage.setItem('projects', JSON.stringify({
@@ -31,7 +30,7 @@ const Task = (title, description, dueDate, prioritySelected, projectSelected, pr
 
 // CREATE NEW TASK
 document.body.querySelector('#submit')
-  .addEventListener('click', (event) => {
+  .addEventListener('click', () => {
     // get data from form
     const title = document.querySelector('#title').value;
     const description = document.querySelector('#description').value;
@@ -65,8 +64,6 @@ document.body.querySelector('#submit')
     localStorage.setItem('projects', JSON.stringify(allProjects));
 
     renderTask(task, projectSelected.replace(/\s/g, ''));
-
-    event.preventDefault();
   });
 
 // CREATE NEW PROJECT
