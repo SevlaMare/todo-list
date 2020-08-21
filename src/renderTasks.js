@@ -48,6 +48,19 @@ const editTask = (projectSelect, titleP) => {
   txtProject.selectedIndex = prjIndex;
 };
 
+const deleteTask = (projectSelect,taskContainerId, title) => {
+  const projects = JSON.parse(localStorage.getItem('projects'));
+  const project = projects[projectSelect];
+
+  delete project[title];
+
+  localStorage.setItem('projects', JSON.stringify(projects));
+
+  const removeItem = document.getElementById(taskContainerId);
+  console.log(removeItem);
+  document.getElementById(projectSelect.replace(/\s/g, '')).removeChild(removeItem);
+};
+
 // 2 RENDER TASK (get 1 task, render it) (ok)
 const renderTask = (task, projectId) => {
   // DATA
@@ -65,13 +78,17 @@ const renderTask = (task, projectId) => {
   const projDate = createContent('p', null, dueDate);
   const projPriority = createContent('p', null, priority);
   const editButton = createContent('button', null, 'EDIT');
+  const deleteButton = createContent('button', null, 'DELETE');
+
 
   // event
   editButton.addEventListener('click', () => { editTask(projectSelected, title); });
-  editButton.id = `btn${containerId}`;
+  editButton.id = `btnEdit${containerId}`;editButton.id = `btn${containerId}`;
+  deleteButton.addEventListener('click', () => { deleteTask(projectSelected,containerId, title) })
+  deleteButton.id = `btnDelete${containerId}`;
 
   // annex
-  taskDiv.append(projTitle, projDescription, projDate, projPriority, editButton);
+  taskDiv.append(projTitle, projDescription, projDate, projPriority, editButton, deleteButton);
   document.getElementById(projectId).append(taskDiv);
 };
 
