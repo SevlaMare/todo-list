@@ -1,6 +1,6 @@
 import { createContent, createContainer } from './helpers';
 
-// 0 RENDER PROJECT DIVs (ok)
+// 0 RENDER PROJECT DIVs
 const renderProjects = () => {
   const projects = JSON.parse(localStorage.getItem('projects'));
   const projectsKeys = Object.keys(projects);
@@ -17,7 +17,7 @@ const renderProjects = () => {
   }
 };
 
-// 1 GET ALL TASKS FROM A PROJECT (ok)
+// 1 GET ALL TASKS FROM A PROJECT
 const getAllTasksFrom = (project) => {
   const allProjects = JSON.parse(localStorage.getItem('projects'));
 
@@ -48,7 +48,7 @@ const editTask = (projectSelect, titleP) => {
   txtProject.selectedIndex = prjIndex;
 };
 
-const deleteTask = (projectSelect,taskContainerId, title) => {
+const deleteTask = (projectSelect, taskContainerId, title) => {
   const projects = JSON.parse(localStorage.getItem('projects'));
   const project = projects[projectSelect];
 
@@ -57,13 +57,11 @@ const deleteTask = (projectSelect,taskContainerId, title) => {
   localStorage.setItem('projects', JSON.stringify(projects));
 
   const removeItem = document.getElementById(taskContainerId);
-  console.log(removeItem);
   document.getElementById(projectSelect.replace(/\s/g, '')).removeChild(removeItem);
 };
 
 // 2 RENDER TASK (get 1 task, render it) (ok)
 const renderTask = (task, projectId) => {
-  // DATA
   const {
     title, description, dueDate, priority, projectSelected,
   } = task;
@@ -80,11 +78,10 @@ const renderTask = (task, projectId) => {
   const editButton = createContent('button', null, 'EDIT');
   const deleteButton = createContent('button', null, 'DELETE');
 
-
   // event
   editButton.addEventListener('click', () => { editTask(projectSelected, title); });
-  editButton.id = `btnEdit${containerId}`;editButton.id = `btn${containerId}`;
-  deleteButton.addEventListener('click', () => { deleteTask(projectSelected,containerId, title) })
+  editButton.id = `btnEdit${containerId}`; editButton.id = `btn${containerId}`;
+  deleteButton.addEventListener('click', () => { deleteTask(projectSelected, containerId, title); });
   deleteButton.id = `btnDelete${containerId}`;
 
   // annex
