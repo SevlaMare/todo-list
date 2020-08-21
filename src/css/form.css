@@ -51,3 +51,8 @@ input:focus {
 .error-msg {
   color: red;
 }
+
+input[type=submit] {
+  margin: 20px 0;
+  cursor: pointer;
+}
