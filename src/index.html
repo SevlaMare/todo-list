@@ -6,7 +6,7 @@
   <title>Todo</title>
 </head>
 <body>
-  <form class="hide" id="formNewProj">
+  <form id="formNewProj">
     <h2>New Project</h2>
 
     <div class="field">
@@ -19,7 +19,7 @@
     </div>
   </form>
 
-  <form class="hide" id="form">
+  <form id="form" class="abs">
     <h2>New Task</h2>
     <div class="field">
       <label for="title">Title</label>
@@ -51,10 +51,10 @@
     </div>
 
     <div class="field">
-      <input id="submit" type="submit" value="CREATE TASK"></input>
+      <input id="submit" type="submit" value="OK"></input>
     </div>
   </form>
 
-  <div id="tasks"></div>
+  <div id="tasks" class="flex wrap"></div>
 </body>
 </html>

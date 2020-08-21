@@ -1,6 +1,7 @@
 import { renderProjects, renderTask, renderAllTask } from './renderTasks';
 import './css/style.css';
 import './css/form.css';
+import './css/projects.css';
 
 
 // CREATE DATABASE
@@ -99,13 +100,3 @@ document.body.onload = () => {
   renderProjects();
   renderAllTask();
 };
-
-
-
-// console.log('here >>>')
-// console.log(document.getElementById('all'))
-
-// document.querySelector('#all')
-// .addEventListener('click', () => { 
-//   alert('ya') 
-// })

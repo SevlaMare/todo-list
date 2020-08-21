@@ -1,4 +1,5 @@
 form {
+  float: left;
   width: 350px;
   margin: 50px auto;
   padding: 45px;
@@ -6,6 +7,11 @@ form {
   border-radius: 4px;
   color: #333;
   background: #fff;
+}
+
+.abs {
+  position: absolute; 
+  bottom: 0;
 }
 
 label {

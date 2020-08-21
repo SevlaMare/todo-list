@@ -24,19 +24,6 @@ const getAllTasksFrom = (project) => {
   return allProjects[project];
 };
 
-<<<<<<< HEAD
-// 2 RENDER TASK
-const renderTask = (task, projectId) => {
-  // data
-  const { title } = task;
-  const { description } = task;
-  const { dueDate } = task;
-  const priority = task.prioritySelected;
-
-  // containers
-  const taskDiv = createContainer('div');
-  const editBtn = createInput('button', null, false, null, 'EDIT')
-=======
 const editTask = (projectSelect, titleP) => {
   const project = JSON.parse(localStorage.getItem('projects'));
   const {
@@ -84,7 +71,6 @@ const renderTask = (task, projectId) => {
   // containers
   const containerId = title.replace(/\s/g, '') + projectId;
   const taskDiv = createContainer('div', null, containerId);
->>>>>>> 1c37d0aeb4e5d745985422109729c8030aa8b289
 
   // content
   const projTitle = createContent('h3', null, title);
@@ -102,11 +88,7 @@ const renderTask = (task, projectId) => {
   deleteButton.id = `btnDelete${containerId}`;
 
   // annex
-<<<<<<< HEAD
-  taskDiv.append(projTitle, projDescription, projDate, projPriority, editBtn);
-=======
   taskDiv.append(projTitle, projDescription, projDate, projPriority, editButton, deleteButton);
->>>>>>> 1c37d0aeb4e5d745985422109729c8030aa8b289
   document.getElementById(projectId).append(taskDiv);
 };
 

@@ -1,7 +1,6 @@
-body {
-  background: lightcyan;
-}
+.flex { display: flex; }
+.wrap { flex-wrap: wrap; }
 
-#tasks {
-  border: solid 1px #333;
+body {
+  background: lightgray;
 }
