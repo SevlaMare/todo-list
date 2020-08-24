@@ -44,23 +44,6 @@ module.exports = {
         },
       },
 
-      // FILE LOADER - fonts
-      // {
-      //   test: /\.(svg|eot|ttf|woff|woff2)$/,
-      //   use: [
-      //     {
-      //       loader: 'file-loader',
-      //       options: {
-      //         name: 'fonts/[name].[ext]',
-      //         output: 'fonts/',
-      //         publicPath: '../',
-      //         options: {url: false}
-      //         // outputPath: 'fonts/'
-      //       }
-      //     }
-      //   ]
-      // },
-
       // CSS LOADER + split plug
       {
         test: /\.css$/,
@@ -77,11 +60,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'LeForm',
-      // template: 'src/index.html',
-      // filename: 'index.html',
-      meta: { viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no' },
-      // favicon: "img/idk.svg",
+      template: 'src/index.html',
     }),
 
     new MiniCssExtractPlugin({

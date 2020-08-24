@@ -1,0 +1,6 @@
+.flex { display: flex; }
+.wrap { flex-wrap: wrap; }
+
+body {
+  background: lightgray;
+}
