@@ -1,5 +1,6 @@
 #tasks {
-  margin: 50px;
+  width: fit-content;
+  margin: 50px auto;
   padding-left: 25px;
 }
 
