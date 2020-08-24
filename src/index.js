@@ -6,9 +6,14 @@ import './css/projects.css';
 // CREATE DATABASE
 if (!(localStorage.getItem('projects'))) {
   localStorage.setItem('projects', JSON.stringify({
-    'Common Project':{ todo1 : { description: "make a pie", dueDate: "2020-08-05", prioritySelected: "High", prjIndex: 0, projectSelected: "Common Project", title: "todo1"},
-      todo2 : { description: "make another pie", dueDate: "2020-08-05", prioritySelected: "Low", prjIndex: 0, projectSelected: "Common Project", title: "todo2"}
-    }
+    'Common Project': {
+      todo1: {
+        description: 'make a pie', dueDate: '2020-08-05', prioritySelected: 'High', prjIndex: 0, projectSelected: 'Common Project', title: 'todo1',
+      },
+      todo2: {
+        description: 'make another pie', dueDate: '2020-08-05', prioritySelected: 'Low', prjIndex: 0, projectSelected: 'Common Project', title: 'todo2',
+      },
+    },
   }));
 }
 
