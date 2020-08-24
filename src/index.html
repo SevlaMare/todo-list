@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo</title>
+</head>
+<body>
+  <form id="formNewProj">
+    <h2>New Project</h2>
+
+    <div class="field">
+      <label for="newProject">Project Name</label>
+      <input id="newProject" type="text" required>
+    </div>
+
+    <div class="field">
+      <input id="newProjBtn" type="submit" value="CREATE PROJECT"></input>
+    </div>
+  </form>
+
+  <form id="form" class="abs">
+    <h2>New Task</h2>
+    <div class="field">
+      <label for="title">Title</label>
+      <input id="title" type="text" required>
+    </div>
+
+    <div class="field">
+      <label for="description">Description</label>
+      <input id="description" type="text" required>  
+    </div>
+
+    <div class="field">
+      <label for="dueDate">dueDate</label>
+      <input id="dueDate" type="date" required>
+    </div>
+
+    <div class="field"></div>
+      <label>Priority</label>
+      <select id="priority">
+        <option value='high'>High</option>
+        <option value='low'>Low</option>
+      </select>
+    </div>
+
+    <div class="field"></div>
+      <label>Project</label>
+      <select id="project">
+      </select>
+    </div>
+
+    <div class="field">
+      <input id="submit" type="submit" value="OK"></input>
+    </div>
+  </form>
+
+  <div id="tasks" class="flex wrap"></div>
+</body>
+</html>
